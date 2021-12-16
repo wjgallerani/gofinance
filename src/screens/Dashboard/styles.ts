@@ -1,4 +1,7 @@
 import styled from "styled-components/native";
+import { Feather } from '@expo/vector-icons';
+import { FlatList } from "react-native";
+import { DataListProps } from ".";
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 
 export const Container = styled.View`
@@ -15,6 +18,9 @@ export const Header = styled.View`
 export const UserWrapper = styled.View`
     width: 100%;
     padding: 0 24px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 export const UserInfo = styled.View`
@@ -43,3 +49,36 @@ export const UserName = styled.Text`
     font-size: ${RFValue(18)}px;
     font-family: ${({ theme }) => theme.fonts.bold};
 `;
+
+export const Icon = styled(Feather)`
+    color:  ${({ theme }) => theme.colors.secondaty};    
+    font-size: ${RFValue(24)}px;
+`;
+
+export const HighligthCards = styled.ScrollView.attrs({
+    horizontal: true,
+    showsHorizontalScrollIndicator: false,
+    contentContainerStyle: { paddingHorizontal: 24 },
+})`
+    width: 100%;
+    position: absolute;
+    margin-top: ${RFPercentage(20)}px;
+`;
+
+export const Transactions = styled.View`
+    flex: 1%;
+    padding: 0 24px;
+
+    margin-top: ${RFPercentage(12)}px;
+`;
+
+export const Title = styled.Text`
+    font-size: ${RFValue(18)}px;
+    font-family: ${({ theme }) => theme.fonts.regular};
+`;
+
+export const TransactionList = styled(
+    FlatList as new () => FlatList<DataListProps>
+).attrs({
+    showsVerticalScrollIndicator: false
+})``;
