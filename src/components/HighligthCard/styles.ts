@@ -9,7 +9,7 @@ interface TypeProps {
 
 export const Container = styled.View<TypeProps>`
    background-color: ${({ theme, type }) =>
-        type === 'total' ? theme.colors.secondaty : theme.colors.shape};
+        type === 'total' ? theme.colors.secondary : theme.colors.shape};
 
    width: ${RFValue(300)}px;
    border-radius: 5px;
