@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
+import { ActivityIndicator, Alert, Platform } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import AppleSvg from '../../assets/apple.svg';
 import GoogleSvg from '../../assets/google.svg';
 import LogoSvg from '../../assets/logo.svg';
+
+import { useTheme } from "styled-components";
 
 import { SignSocialButton } from '../../components/SignSocialButton'
 
@@ -20,7 +23,30 @@ import {
 } from './styles';
 
 export function SignIn() {
-    const { user } = useAuth();
+    const { signInWithGoogle, signInWithApple } = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const theme = useTheme();
+
+    async function hanleSignInWithGoogle() {
+        try {
+            setIsLoading(true);
+            return await signInWithGoogle();
+        } catch (error) {
+            Alert.alert('Não foi possível conectar a conta Google.');
+            setIsLoading(false);
+        }
+    }
+
+    async function hanleSignInWithApple() {
+        try {
+            setIsLoading(true);
+            return await signInWithApple();
+        } catch (error) {
+            Alert.alert('Não foi possível conectar a conta Apple.');
+            setIsLoading(false);
+        }
+    }
 
     return (
         <Container>
@@ -49,13 +75,27 @@ export function SignIn() {
                     <SignSocialButton
                         title="Entrar com Google"
                         svg={GoogleSvg}
+                        onPress={hanleSignInWithGoogle}
                     />
 
-                    <SignSocialButton
-                        title="Entrar com Apple"
-                        svg={AppleSvg}
-                    />
+                    {
+                        Platform.OS === 'ios' &&
+                        <SignSocialButton
+                            title="Entrar com Apple"
+                            svg={AppleSvg}
+                            onPress={hanleSignInWithApple}
+                        />
+                    }
+
                 </FooterWrapper>
+
+                {
+                    isLoading &&
+                    <ActivityIndicator
+                        color={theme.colors.shape}
+                        style={{ marginTop: 18 }}
+                    />
+                }
             </Footer>
         </Container>
     );

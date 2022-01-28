@@ -13,7 +13,7 @@ import { Dashboard } from '../screens/Dashboard';
 import { Register } from '../screens/Register';
 import { Resume } from '../screens/Resume';
 
-export function AppRouts() {
+export function AppRoutes() {
     const theme = useTheme();
 
     return (
