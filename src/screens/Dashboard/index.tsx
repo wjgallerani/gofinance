@@ -114,7 +114,10 @@ export function Dashboard() {
 
         const lastTransactionEntries = getLastTransactionDate(transactions, 'positive');
         const lastTransactionExpensives = getLastTransactionDate(transactions, 'negative');
-        const totalInterval = `01 à ${lastTransactionExpensives}`;
+
+        const totalInterval = lastTransactionEntries === 0
+            ? 'Não há transações'
+            : `01 à ${lastTransactionExpensives}`;
 
         const total = entriesTotal - expensiveTotal;
         setHighligthData({
